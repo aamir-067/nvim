@@ -36,7 +36,7 @@ vim.keymap.set("n", "10", function() ui.nav_file(10) end)
 
 
 -- undo tree
-vim.keymap.set("n", "<leader>tt", vim.cmd.UndotreeToggle)
+vim.keymap.set("n", "<leader>tu", vim.cmd.UndotreeToggle)
 
 
 -- git fugitive mappings

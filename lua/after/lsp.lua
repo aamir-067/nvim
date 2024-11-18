@@ -26,9 +26,9 @@ mason_lspconfig.setup({
         "rust_analyzer",  -- Rust
         "ts_ls",       -- JavaScript/TypeScript
         "pyright",        -- Python
-        "gopls",          -- Go
+        -- "gopls",          -- Go
         "html",           -- HTML
-        "jsonls",         -- JSON
+        -- "jsonls",         -- JSON
         "clangd",         -- C/C++
         "phpactor",       -- PHP
     },
@@ -49,9 +49,9 @@ local servers = {
     rust_analyzer = {},
     ts_ls = {},
     pyright = {},
-    gopls = {},
+    -- gopls = {},
     html = {},
-    jsonls = {},
+    -- jsonls = {},
     clangd = {},
     phpactor = {},
 }
