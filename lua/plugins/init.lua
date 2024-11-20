@@ -9,5 +9,7 @@ return {
     require("plugins.bufferline"),
     require("plugins.catppuccin"),
     require("plugins.tokyonight"),
+    require("plugins.coc"),
+    require("plugins.codium"),
 
   }
