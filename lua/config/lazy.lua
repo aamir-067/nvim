@@ -28,7 +28,7 @@ require("lazy").setup({
     { import = "plugins" },
   },
   defaults = {
-    lazy = true
+    lazy = false
   },
   -- Configure any other settings here. See the documentation for more details.
   

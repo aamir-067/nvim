@@ -25,6 +25,7 @@ mason_lspconfig.setup({
 		"lua_ls",
 		"rust_analyzer",
 		"ts_ls", -- Correct name
+		"tsserver",
 		"pyright",
 		"clangd",
 		"phpactor",
@@ -45,6 +46,8 @@ local servers = {
 	},
 	rust_analyzer = {},
 	pyright = {},
+	-- tsserver = {},
+	ts_ls = {},
 	clangd = {},
 	phpactor = {},
 }
@@ -64,7 +67,6 @@ cmp.setup.cmdline("/", {
 		name = "buffer",
 	},
 })
-
 cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
