@@ -10,6 +10,6 @@ return {
     require("plugins.catppuccin"),
     require("plugins.tokyonight"),
     require("plugins.coc"),
-    require("plugins.codium"),
-
+    require("plugins.conform"),
+    require("plugins.noice"),
   }

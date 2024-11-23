@@ -1,20 +1,31 @@
 return {
-    require'nvim-treesitter.configs'.setup {
-        ensure_installed = { "javascript", "typescript", "php", "json",  "python", "rust", "solidity", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
-        sync_install = false,
-        auto_install = true,
-    
-        highlight = {
-          enable = true,
-    
-        },
-        indent = {
-          enable = true,
-        }
-      }
-    
-}
+	require("nvim-treesitter.configs").setup({
+		ensure_installed = {
+			"javascript",
+			"typescript",
+			"php",
+			"json",
+			"python",
+			"rust",
+			"solidity",
+			"lua",
+			"vim",
+			"vimdoc",
+			"query",
+			"markdown",
+			"markdown_inline",
+		},
+		sync_install = false,
+		auto_install = true,
 
+		highlight = {
+			enable = true,
+		},
+		indent = {
+			enable = true,
+		},
+	}),
+}
 
 -- return {
 --   "nvim-treesitter/nvim-treesitter",
@@ -98,3 +109,4 @@ return {
 --     require("nvim-treesitter.configs").setup(opts)
 --   end,
 -- }
+
