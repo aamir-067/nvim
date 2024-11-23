@@ -12,4 +12,5 @@ return {
     require("plugins.coc"),
     require("plugins.conform"),
     require("plugins.noice"),
+  require("plugins.neo-tree"),
   }

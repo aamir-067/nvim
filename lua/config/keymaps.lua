@@ -1,5 +1,7 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+
+-- I installed neo-tree inseated of default file tree.
+-- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- telescope
 local builtin = require("telescope.builtin")
@@ -58,13 +60,15 @@ vim.keymap.set("n", "<leader>tu", vim.cmd.UndotreeToggle)
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
 -- noice mappings
-vim.keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", {desc  = "clear noice messages"})
+vim.keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "clear noice messages" })
 
-
-
-
-
-
+-- neo tree command.
+vim.api.nvim_set_keymap(
+  'n', -- Mode: 'n' for normal mode
+  '<leader>pv', -- Shortcut: change '<leader>n' to any key combination you prefer
+  ':Neotree source=filesystem reveal=true position=right<CR>', -- Command
+  { noremap = true, silent = true } -- Options
+)
 
 
 
