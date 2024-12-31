@@ -70,6 +70,19 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true } -- Options
 )
 
+-- to create a new file
+vim.api.nvim_set_keymap(
+  'n', -- Mode: 'n' for normal mode
+  '<leader>nf', -- Shortcut: change '<leader>n' to any key combination you prefer
+  ':edit ', -- Command
+  { noremap = true, silent = true } -- Options
+)
+
+
+
+
+
+
 
 
 

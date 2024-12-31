@@ -25,10 +25,11 @@ mason_lspconfig.setup({
 		"lua_ls",
 		"rust_analyzer",
 		"ts_ls", -- Correct name
-		"tsserver",
+		--		"tsserver",
 		"pyright",
 		"clangd",
 		"phpactor",
+   "gopls", 
 	},
 	automatic_installation = true, -- Automatically install missing servers
 })
@@ -49,6 +50,7 @@ local servers = {
 	-- tsserver = {},
 	ts_ls = {},
 	clangd = {},
+  gopls = {},
 	phpactor = {},
 }
 
