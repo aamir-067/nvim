@@ -6,7 +6,7 @@ vim.g.mapleader = " "
 -- telescope
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Telescope find files" })
+vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Telescope find files" })
 vim.keymap.set("n", "<leader>fw", function()
 	builtin.grep_string({ search = vim.fn.input("Word Finder > ") })
 end)
@@ -81,7 +81,9 @@ vim.api.nvim_set_keymap(
 
 
 
-
+-- scroll Shortcuts  todo: fix this
+--vim.api.nvim_set_keymap('n', '<leader>', '<C-u>', { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', '<>', '<C-d>', { noremap = true, silent = true })
 
 
 
