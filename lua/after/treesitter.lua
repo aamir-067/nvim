@@ -7,6 +7,7 @@ return {
 			"json",
 			"python",
 			"rust",
+      "go",
 			"solidity",
 			"lua",
 			"vim",

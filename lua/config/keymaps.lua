@@ -82,8 +82,8 @@ vim.api.nvim_set_keymap(
 
 
 -- scroll Shortcuts  todo: fix this
---vim.api.nvim_set_keymap('n', '<leader>', '<C-u>', { noremap = true, silent = true })
---vim.api.nvim_set_keymap('n', '<>', '<C-d>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '-', '<C-u>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '=', '<C-d>', { noremap = true, silent = true })
 
 
 

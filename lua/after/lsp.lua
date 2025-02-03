@@ -29,7 +29,7 @@ mason_lspconfig.setup({
 		"pyright",
 		"clangd",
 		"phpactor",
-   "gopls", 
+   "gopls",
 	},
 	automatic_installation = true, -- Automatically install missing servers
 })
@@ -44,7 +44,7 @@ local servers = {
 				telemetry = { enable = false },
 			},
 		},
-	},
+  },
 	rust_analyzer = {},
 	pyright = {},
 	-- tsserver = {},
