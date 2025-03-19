@@ -21,6 +21,8 @@ local ui = require("harpoon.ui")
 
 vim.keymap.set("n", "<leader>a", mark.add_file)
 vim.keymap.set("n", "<leader>e", ui.toggle_quick_menu)
+vim.keymap.set("n", "<leader>r", mark.rm_file)
+vim.keymap.set("n", "<leader>ca",mark.clear_all)
 
 vim.keymap.set("n", "1", function()
 	ui.nav_file(1)
