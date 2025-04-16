@@ -83,10 +83,36 @@ vim.api.nvim_set_keymap(
 
 
 
--- scroll Shortcuts  todo: fix this
+ -- scroll Shortcuts  todo: fix this
 vim.api.nvim_set_keymap('n', '-', '<C-u>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '=', '<C-d>', { noremap = true, silent = true })
 
+
+-- files adding shortcuts.
+vim.keymap.set('n', '<leader>E', ':Explore<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>F', function()
+  vim.ui.input({ prompt = "Create new directory: " }, function(input)
+    if input then
+      vim.fn.mkdir(input, "p")
+      print("Folder created: " .. input)
+    end
+  end)
+end, { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>f', function()
+  vim.ui.input({ prompt = "Create new file: " }, function(input)
+    if input then
+      local file = io.open(input, "w")
+      if file then
+        file:close()
+        vim.cmd("edit " .. input)
+        print("File created and opened: " .. input)
+      else
+        print("Failed to create file: " .. input)
+      end
+    end
+  end)
+end, { noremap = true, silent = true })
 
 
 
