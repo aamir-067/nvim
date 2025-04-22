@@ -22,7 +22,7 @@ local ui = require("harpoon.ui")
 vim.keymap.set("n", "<leader>a", mark.add_file)
 vim.keymap.set("n", "<leader>e", ui.toggle_quick_menu)
 vim.keymap.set("n", "<leader>r", mark.rm_file)
-vim.keymap.set("n", "<leader>ca",mark.clear_all)
+vim.keymap.set("n", "<leader>ca", mark.clear_all)
 
 vim.keymap.set("n", "1", function()
 	ui.nav_file(1)
@@ -66,53 +66,46 @@ vim.keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "clear noice
 
 -- neo tree command.
 vim.api.nvim_set_keymap(
-  'n', -- Mode: 'n' for normal mode
-  '<leader>pv', -- Shortcut: change '<leader>n' to any key combination you prefer
-  ':Neotree source=filesystem reveal=true position=right<CR>', -- Command
-  { noremap = true, silent = true } -- Options
+	"n", -- Mode: 'n' for normal mode
+	"<leader>pv", -- Shortcut: change '<leader>n' to any key combination you prefer
+	":Neotree source=filesystem reveal=true position=right<CR>", -- Command
+	{ noremap = true, silent = true } -- Options
 )
 
 -- to create a new file
 vim.api.nvim_set_keymap(
-  'n', -- Mode: 'n' for normal mode
-  '<leader>nf', -- Shortcut: change '<leader>n' to any key combination you prefer
-  ':edit ', -- Command
-  { noremap = true, silent = true } -- Options
+	"n", -- Mode: 'n' for normal mode
+	"<leader>nf", -- Shortcut: change '<leader>n' to any key combination you prefer
+	":edit ", -- Command
+	{ noremap = true, silent = true } -- Options
 )
 
-
-
-
- -- scroll Shortcuts  todo: fix this
-vim.api.nvim_set_keymap('n', '-', '<C-u>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '=', '<C-d>', { noremap = true, silent = true })
-
+-- scroll Shortcuts  todo: fix this
+vim.api.nvim_set_keymap("n", "-", "<C-u>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "=", "<C-d>", { noremap = true, silent = true })
 
 -- files adding shortcuts.
-vim.keymap.set('n', '<leader>E', ':Explore<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>F', function()
-  vim.ui.input({ prompt = "Create new directory: " }, function(input)
-    if input then
-      vim.fn.mkdir(input, "p")
-      print("Folder created: " .. input)
-    end
-  end)
+vim.keymap.set("n", "<leader>E", ":Explore<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>F", function()
+	vim.ui.input({ prompt = "Create new directory: " }, function(input)
+		if input then
+			vim.fn.mkdir(input, "p")
+			print("Folder created: " .. input)
+		end
+	end)
 end, { noremap = true, silent = true })
 
-vim.keymap.set('n', '<leader>f', function()
-  vim.ui.input({ prompt = "Create new file: " }, function(input)
-    if input then
-      local file = io.open(input, "w")
-      if file then
-        file:close()
-        vim.cmd("edit " .. input)
-        print("File created and opened: " .. input)
-      else
-        print("Failed to create file: " .. input)
-      end
-    end
-  end)
+vim.keymap.set("n", "<leader>f", function()
+	vim.ui.input({ prompt = "Create new file: " }, function(input)
+		if input then
+			local file = io.open(input, "w")
+			if file then
+				file:close()
+				vim.cmd("edit " .. input)
+				print("File created and opened: " .. input)
+			else
+				print("Failed to create file: " .. input)
+			end
+		end
+	end)
 end, { noremap = true, silent = true })
-
-
-
