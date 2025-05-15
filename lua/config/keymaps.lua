@@ -3,6 +3,7 @@ vim.g.mapleader = " "
 -- I installed neo-tree inseated of default file tree.
  vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
+
 -- telescope
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
@@ -101,3 +102,12 @@ vim.keymap.set("n", "<leader>f", function()
         end
     end)
 end, { noremap = true, silent = true })
+
+
+
+-- shortcut to yank the highlighted code to system clipboard.
+
+vim.keymap.set("v", "<leader>Y", '"+y', { noremap = true, silent = true })
+
+
+
