@@ -9,7 +9,7 @@ local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
 vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Telescope find files" })
 vim.keymap.set("n", "<leader>fw", function()
-    builtin.grep_string({ search = vim.fn.input("Word Finder > ") })
+    builtin.grep_string({ search = vim.fn.input("Grep word > ") })
 end)
 
 vim.keymap.set("n", "<leader>lg", builtin.live_grep, { desc = "Telescope live grep" })
@@ -76,6 +76,9 @@ vim.api.nvim_set_keymap(
 -- scroll Shortcuts  todo: fix this
 vim.api.nvim_set_keymap("n", "-", "<C-u>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "=", "<C-d>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "-", "<C-u>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "=", "<C-d>", { noremap = true, silent = true })
+
 
 -- files adding shortcuts.
 vim.keymap.set("n", "<leader>E", ":Explore<CR>", { noremap = true, silent = true })
@@ -106,7 +109,6 @@ end, { noremap = true, silent = true })
 
 
 -- shortcut to yank the highlighted code to system clipboard.
-
 vim.keymap.set("v", "<leader>Y", '"+y', { noremap = true, silent = true })
 
 
