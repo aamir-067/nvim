@@ -109,7 +109,14 @@ end, { noremap = true, silent = true })
 
 
 -- shortcut to yank the highlighted code to system clipboard.
-vim.keymap.set("v", "<leader>Y", '"+y', { noremap = true, silent = true })
+vim.keymap.set("v", "<leader>y", '"+y', { noremap = true, silent = true })
+
+-- shortcut to save current changes with capital W.  
+
+-- 2.
+vim.api.nvim_create_user_command("W", "w", {})
+vim.api.nvim_create_user_command("Wa", "wa", {})
+vim.api.nvim_create_user_command("Wqa", "wqa", {})
 
 
 
