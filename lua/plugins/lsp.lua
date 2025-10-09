@@ -150,6 +150,28 @@ return {
                     { name = "cmdline", option = { ignore_cmds = { "!" } } },
                 }),
             })
+
+            -- Configure how diagnostics (errors/warnings) are displayed
+            vim.diagnostic.config({
+                virtual_text = {
+                    prefix = "●", -- icon shown inline (can be ">>" or "")
+                    spacing = 2,
+                    severity = { min = vim.diagnostic.severity.HINT }, -- show all levels
+                },
+                signs = true, -- keep sign column
+                underline = true, -- underline errors
+                update_in_insert = true, -- show diagnostics in insert mode too
+                severity_sort = true,
+                float = {
+                    border = "rounded",
+                    source = "always",
+                },
+            })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = "#6B7280" })   -- gray
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn",  { fg = "#6B7280" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo",  { fg = "#6B7280" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint",  { fg = "#6B7280" })
+
         end,
     },
     -- Mason (loaded as dependency, but explicitly listed for clarity)
