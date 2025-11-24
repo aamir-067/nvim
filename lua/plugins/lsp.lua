@@ -40,8 +40,10 @@ return {
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
                 vim.keymap.set("n", "rn", vim.lsp.buf.rename, opts)
                 vim.keymap.set("n", "ca", vim.lsp.buf.code_action, opts)
-                vim.keymap.set("n", "gn", vim.diagnostic.goto_prev, opts)
-                vim.keymap.set("n", "gp", vim.diagnostic.goto_next, opts)
+
+                -- 🔥 Jump between diagnostics (errors/warnings)
+                vim.keymap.set("n", "ee", vim.diagnostic.goto_prev, opts) -- previous error
+                vim.keymap.set("n", "EE", vim.diagnostic.goto_next, opts) -- next error
             end
 
             -- Configure Mason
@@ -167,11 +169,6 @@ return {
                     source = "always",
                 },
             })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = "#6B7280" })   -- gray
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn",  { fg = "#6B7280" })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo",  { fg = "#6B7280" })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint",  { fg = "#6B7280" })
-
         end,
     },
     -- Mason (loaded as dependency, but explicitly listed for clarity)

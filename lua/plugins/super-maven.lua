@@ -8,7 +8,7 @@ return {
                 clear_suggestion = "<C-]>",
                 accept_word = "<C-j>",
             },
-            ignore_filetypes = { "go", "rust" },
+            ignore_filetypes = { "go", "rust", "python3", "python", "py" },
             color = {
                 suggestion_color = "#ffffff",
                 cterm = 244,
