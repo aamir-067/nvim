@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 
 -- I installed neo-tree inseated of default file tree.
- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 
 -- telescope
@@ -67,9 +67,9 @@ vim.keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "clear noice
 
 -- to create a new file
 vim.api.nvim_set_keymap(
-    "n",                           -- Mode: 'n' for normal mode
-    "<leader>nf",                  -- Shortcut: change '<leader>n' to any key combination you prefer
-    ":edit ",                      -- Command
+    "n",                              -- Mode: 'n' for normal mode
+    "<leader>nf",                     -- Shortcut: change '<leader>n' to any key combination you prefer
+    ":edit ",                         -- Command
     { noremap = true, silent = true } -- Options
 )
 
@@ -81,23 +81,42 @@ vim.api.nvim_set_keymap("v", "=", "<C-d>", { noremap = true, silent = true })
 
 
 -- files adding shortcuts.
+
+-- Helper function: Refresh netrw if you're inside it
+local function refresh_netrw()
+    -- Only refresh if current buffer *is* netrw
+    if vim.bo.filetype == "netrw" then
+        vim.cmd.Ex()
+    end
+end
+
 vim.keymap.set("n", "<leader>E", ":Explore<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>F", function()
+    local base = vim.b.netrw_curdir or vim.fn.getcwd()
+
     vim.ui.input({ prompt = "Create new directory: " }, function(input)
-        if input then
-            vim.fn.mkdir(input, "p")
+        if input and input ~= "" then
+            local path = base .. "/" .. input
+
+            vim.fn.mkdir(path, "p")
+            refresh_netrw()
             print("Folder created: " .. input)
         end
     end)
 end, { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>f", function()
+    local base = vim.b.netrw_curdir or vim.fn.getcwd()
+
     vim.ui.input({ prompt = "Create new file: " }, function(input)
-        if input then
-            local file = io.open(input, "w")
+        if input and input ~= "" then
+            local path = base .. "/" .. input
+            local file = io.open(path, "w")
+
             if file then
                 file:close()
                 vim.cmd("edit " .. input)
+                refresh_netrw()
                 print("File created and opened: " .. input)
             else
                 print("Failed to create file: " .. input)
@@ -111,12 +130,9 @@ end, { noremap = true, silent = true })
 -- shortcut to yank the highlighted code to system clipboard.
 vim.keymap.set("v", "<leader>y", '"+y', { noremap = true, silent = true })
 
--- shortcut to save current changes with capital W.  
+-- shortcut to save current changes with capital W.
 
 -- 2.
 vim.api.nvim_create_user_command("W", "w", {})
 vim.api.nvim_create_user_command("Wa", "wa", {})
 vim.api.nvim_create_user_command("Wqa", "wqa", {})
-
-
-
