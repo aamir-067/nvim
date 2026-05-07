@@ -63,7 +63,7 @@ vim.keymap.set("n", "<leader>tu", vim.cmd.UndotreeToggle)
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
 -- noice mappings
-vim.keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "clear noice messages" })
+-- vim.keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "clear noice messages" })
 
 -- to create a new file
 vim.api.nvim_set_keymap(
