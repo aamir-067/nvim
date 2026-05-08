@@ -1,2 +1,1 @@
-require("after.treesitter")
-require("after.conform")
+-- after init is intentionally empty; all plugin configs are in plugins/

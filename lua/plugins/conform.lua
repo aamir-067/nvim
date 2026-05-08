@@ -11,7 +11,7 @@ return {
                 astro = { "prettierd", "prettier", stop_after_first = true },
                 javascript = { "prettierd", "prettier", stop_after_first = true },
                 typescript = { "prettierd", "prettier", stop_after_first = true },
-                python = { "prettierd", "prettier", stop_after_first = true },
+                python = { "isort", "black" },
                 javascriptreact = { "prettierd", "prettier", stop_after_first = true },
                 typescriptreact = { "prettierd", "prettier", stop_after_first = true },
                 json = { "prettierd", "prettier", stop_after_first = true },
@@ -20,13 +20,17 @@ return {
                 html = { "htmlbeautifier" },
                 bash = { "beautysh" },
                 proto = { "buf" },
-                rust = { "rustfmt" },
+                rust = { "rustfmt", lsp_format = "fallback" },
                 yaml = { "yamlfix" },
                 toml = { "taplo" },
                 css = { "prettierd", "prettier", stop_after_first = true },
                 scss = { "prettierd", "prettier", stop_after_first = true },
                 sh = { "shellcheck" },
                 go = { "gofmt" },
+            },
+            format_on_save = {
+                timeout_ms = 500,
+                lsp_format = "fallback",
             },
         })
 
@@ -36,11 +40,6 @@ return {
                 async = false,
                 timeout_ms = 1000,
             })
-
-            format_on_save = {
-                timeout_ms = 500,
-                lsp_format = "fallback",
-            }
         end, { desc = "Format file or range (in visual mode)" })
     end,
 }

@@ -1,5 +1,4 @@
 return {
-    -- Core LSP support
     {
         "neovim/nvim-lspconfig",
         dependencies = {
@@ -12,27 +11,8 @@ return {
             "rafamadriz/friendly-snippets",
         },
         config = function()
-            -- Critical fix: Replace automatic_enable module with a harmless one
-            -- This MUST be done before any Mason modules are loaded
-            package.preload["mason-lspconfig.features.automatic_enable"] = function()
-                return {
-                    init = function()
-                        -- No-op function that does nothing but doesn't error
-                    end
-                }
-            end
-
-
-            local mason = require("mason")
-            local mason_lspconfig = require("mason-lspconfig")
-            local lspconfig = require("lspconfig")
-            local cmp = require("cmp")
-            local luasnip = require("luasnip")
-
-            -- Capabilities for enhanced LSP features (like autocompletion with nvim-cmp)
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            -- Common on_attach function to define keybindings for LSP features
             local on_attach = function(_, bufnr)
                 local opts = { noremap = true, silent = true, buffer = bufnr }
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -40,17 +20,28 @@ return {
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
                 vim.keymap.set("n", "rn", vim.lsp.buf.rename, opts)
                 vim.keymap.set("n", "ca", vim.lsp.buf.code_action, opts)
-
-                -- 🔥 Jump between diagnostics (errors/warnings)
-                vim.keymap.set("n", "ee", vim.diagnostic.goto_prev, opts) -- previous error
-                vim.keymap.set("n", "EE", vim.diagnostic.goto_next, opts) -- next error
+                vim.keymap.set("n", "ee", vim.diagnostic.goto_prev, opts)
+                vim.keymap.set("n", "EE", vim.diagnostic.goto_next, opts)
             end
 
-            -- Configure Mason
-            mason.setup()
+            vim.lsp.config("*", {
+                capabilities = capabilities,
+                on_attach = on_attach,
+            })
 
-            -- Set up mason-lspconfig with custom handler instead of automatic_enable
-            mason_lspconfig.setup({
+            vim.lsp.config("lua_ls", {
+                settings = {
+                    Lua = {
+                        diagnostics = { globals = { "vim" } },
+                        workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+                        telemetry = { enable = false },
+                    },
+                },
+            })
+
+            require("mason").setup()
+
+            require("mason-lspconfig").setup({
                 ensure_installed = {
                     "lua_ls",
                     "rust_analyzer",
@@ -58,64 +49,12 @@ return {
                     "pyright",
                     "clangd",
                     "phpactor",
-                    "gopls",
-                },
-                handlers = {
-                    -- Default handler for all servers
-                    function(server)
-                        lspconfig[server].setup({
-                            on_attach = on_attach,
-                            capabilities = capabilities,
-                        })
-                    end,
-                    -- Custom setup for specific servers
-                    ["lua_ls"] = function()
-                        lspconfig.lua_ls.setup({
-                            on_attach = on_attach,
-                            capabilities = capabilities,
-                            settings = {
-                                Lua = {
-                                    diagnostics = { globals = { "vim" } },
-                                    workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-                                    telemetry = { enable = false },
-                                },
-                            },
-                        })
-                    end,
-                    ["rust_analyzer"] = function()
-                        lspconfig.rust_analyzer.setup({
-                            on_attach = on_attach,
-                            capabilities = capabilities,
-                        })
-                    end,
-                    ["ts_ls"] = function()
-                        lspconfig.ts_ls.setup({
-                            on_attach = on_attach,
-                            capabilities = capabilities,
-                        })
-                    end,
-                    ["pyright"] = function()
-                        lspconfig.pyright.setup({
-                            on_attach = on_attach,
-                            capabilities = capabilities,
-                        })
-                    end,
-                    ["clangd"] = function()
-                        lspconfig.clangd.setup({
-                            on_attach = on_attach,
-                            capabilities = capabilities,
-                        })
-                    end,
-                    ["gopls"] = function()
-                        lspconfig.gopls.setup({
-                            on_attach = on_attach,
-                            capabilities = capabilities,
-                        })
-                    end,
                 },
             })
 
-            -- Set up nvim-cmp for autocompletion
+            local cmp = require("cmp")
+            local luasnip = require("luasnip")
+
             cmp.setup({
                 snippet = {
                     expand = function(args)
@@ -137,7 +76,6 @@ return {
                 }),
             })
 
-            -- Command line autocompletion
             cmp.setup.cmdline("/", {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = {
@@ -153,16 +91,15 @@ return {
                 }),
             })
 
-            -- Configure how diagnostics (errors/warnings) are displayed
             vim.diagnostic.config({
                 virtual_text = {
-                    prefix = "●", -- icon shown inline (can be ">>" or "")
+                    prefix = "●",
                     spacing = 2,
-                    severity = { min = vim.diagnostic.severity.HINT }, -- show all levels
+                    severity = { min = vim.diagnostic.severity.HINT },
                 },
-                signs = true, -- keep sign column
-                underline = true, -- underline errors
-                update_in_insert = true, -- show diagnostics in insert mode too
+                signs = true,
+                underline = true,
+                update_in_insert = true,
                 severity_sort = true,
                 float = {
                     border = "rounded",
@@ -171,10 +108,7 @@ return {
             })
         end,
     },
-    -- Mason (loaded as dependency, but explicitly listed for clarity)
-    {
-        "williamboman/mason.nvim" },
-    -- Other plugins (listed separately to match your original structure)
+    { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
     { "hrsh7th/nvim-cmp" },
     { "hrsh7th/cmp-nvim-lsp" },
