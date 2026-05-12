@@ -20,8 +20,15 @@ return {
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
                 vim.keymap.set("n", "rn", vim.lsp.buf.rename, opts)
                 vim.keymap.set("n", "ca", vim.lsp.buf.code_action, opts)
-                vim.keymap.set("n", "ee", vim.diagnostic.goto_prev, opts)
-                vim.keymap.set("n", "EE", vim.diagnostic.goto_next, opts)
+                --vim.keymap.set("n", "ee", vim.diagnostic.goto_prev, opts)
+                --vim.keymap.set("n", "EE", vim.diagnostic.goto_next, opts)
+                vim.keymap.set("n", "ee", function()
+                    vim.diagnostic.jump({ count = -1, float = true })
+                end, opts)
+
+                vim.keymap.set("n", "EE", function()
+                    vim.diagnostic.jump({ count = 1, float = true })
+                end, opts)
             end
 
             vim.lsp.config("*", {
@@ -95,7 +102,8 @@ return {
                 virtual_text = {
                     prefix = "●",
                     spacing = 2,
-                    severity = { min = vim.diagnostic.severity.HINT },
+                    severity = { min = vim.diagnostic.severity.ERROR },
+                    
                 },
                 signs = true,
                 underline = true,
