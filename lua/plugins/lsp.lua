@@ -13,27 +13,29 @@ return {
         config = function()
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            local on_attach = function(_, bufnr)
-                local opts = { noremap = true, silent = true, buffer = bufnr }
-                vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-                vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-                vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-                vim.keymap.set("n", "rn", vim.lsp.buf.rename, opts)
-                vim.keymap.set("n", "ca", vim.lsp.buf.code_action, opts)
-                --vim.keymap.set("n", "ee", vim.diagnostic.goto_prev, opts)
-                --vim.keymap.set("n", "EE", vim.diagnostic.goto_next, opts)
-                vim.keymap.set("n", "ee", function()
-                    vim.diagnostic.jump({ count = -1, float = true })
-                end, opts)
+            -- LspAttach autocmd instead of on_attach: some bundled server configs
+            -- (ts_ls, pyright, clangd, rust_analyzer) define their own on_attach,
+            -- which overrides the one passed via vim.lsp.config("*")
+            vim.api.nvim_create_autocmd("LspAttach", {
+                callback = function(args)
+                    local opts = { noremap = true, silent = true, buffer = args.buf }
+                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+                    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+                    vim.keymap.set("n", "rn", vim.lsp.buf.rename, opts)
+                    vim.keymap.set("n", "ca", vim.lsp.buf.code_action, opts)
+                    vim.keymap.set("n", "ee", function()
+                        vim.diagnostic.jump({ count = 1, float = true })
+                    end, opts)
 
-                vim.keymap.set("n", "EE", function()
-                    vim.diagnostic.jump({ count = 1, float = true })
-                end, opts)
-            end
+                    vim.keymap.set("n", "Ee", function()
+                        vim.diagnostic.jump({ count = -1, float = true })
+                    end, opts)
+                end,
+            })
 
             vim.lsp.config("*", {
                 capabilities = capabilities,
-                on_attach = on_attach,
             })
 
             vim.lsp.config("lua_ls", {
@@ -102,7 +104,7 @@ return {
                 virtual_text = {
                     prefix = "●",
                     spacing = 2,
-                    severity = { min = vim.diagnostic.severity.ERROR },
+                    severity = { min = vim.diagnostic.severity.HINT},
                     
                 },
                 signs = true,
@@ -111,7 +113,7 @@ return {
                 severity_sort = true,
                 float = {
                     border = "rounded",
-                    source = "always",
+                    source = true,
                 },
             })
         end,
